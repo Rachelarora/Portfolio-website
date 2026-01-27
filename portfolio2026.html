@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rachel Arora | Portfolio</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --bg: #0b0616;
+      --bg-card: #140b2d;
+      --text: #e9d5ff;
+      --subtext: #c4b5fd;
+      --accent: #a855f7;
+      --accent-soft: #c084fc;
+      --nav-bg: rgba(11, 6, 22, 0.9);
+    }
+
+    body.light {
+      --bg: #faf5ff;
+      --bg-card: #f3e8ff;
+      --text: #2e1065;
+      --subtext: #5b21b6;
+      --accent: #7c3aed;
+      --accent-soft: #a78bfa;
+      --nav-bg: rgba(250, 245, 255, 0.9);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ===== CERTIFICATE LIGHTBOX ===== */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(6px);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 14px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    }
+
+    .lightbox.active { display: flex; }
+
+    .lightbox span {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      font-size: 28px;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* ================= NAVBAR ================= */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 16px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--nav-bg);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+    }
+
+    nav strong { font-size: 20px; color: var(--accent); }
+
+    nav ul { list-style: none; display: flex; gap: 24px; }
+
+    nav li a { font-size: 14px; position: relative; padding-bottom: 6px; }
+
+    nav li a.active { color: var(--accent); }
+
+    nav li a.active::after { width: 100%; }
+
+    nav li a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      left: 0;
+      bottom: -6px;
+      transition: 0.3s;
+    }
+
+    nav li a:hover::after { width: 100%; }
+
+    .toggle-btn {
+      cursor: pointer;
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: var(--accent);
+      color: white;
+      font-size: 13px;
+      border: none;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 400px 1fr;
+      gap: 100px;
+      padding: 140px 120px 80px;
+      align-items: center;
+    }
+
+    .hero-img {
+      position: relative;
+      width: 400px;
+      height: 500px;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 3px solid var(--accent);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.35);
+    }
+
+    .hero-img::before {
+      content: '';
+      position: absolute;
+      inset: -14px;
+      background: radial-gradient(circle at top left, var(--accent-soft), transparent 60%);
+      border-radius: 30px;
+      z-index: -1;
+    }
+
+    .hero-img img {
+      width: 100%;
+      height: 110%;
+      object-fit: cover;
+    }
+
+    .hero-text h1 { font-size: 44px; margin-bottom: 6px; }
+    .hero-text h2 { font-size: 22px; color: var(--accent-soft); margin-bottom: 10px; }
+
+    .meta { font-size: 14px; color: var(--subtext); margin-bottom: 18px; }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .resume-btn {
+      padding: 10px 18px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 25px;
+      font-size: 14px;
+    }
+
+    .socials a {
+      font-size: 20px;
+      margin-right: 12px;
+      color: var(--accent-soft);
+    }
+
+    .intro-box {
+      background: var(--bg-card);
+      padding: 22px;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+
+    .intro-box p {
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: var(--subtext);
+    }
+
+    /* ===== SECTIONS ===== */
+    section { padding: 90px 120px; }
+    section h2 { font-size: 32px; margin-bottom: 30px; color: var(--accent); }
+
+    .card {
+      background: var(--bg-card);
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      box-shadow: 0 10px 30px rgba(55, 5, 84, 0.507);
+    }
+
+    .action-link {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+      color: white;
+      font-size: 14px;
+    }
+
+    /* ===== GALLERY ===== */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 2fr));
+      gap: 20px;
+    }
+
+    .gallery img {
+      width: 100%;
+      border-radius: 1px;
+      cursor: pointer;
+    }
+
+    /* ===== CONTACT ===== */
+    .contact {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .contact a { color: var(--accent); }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      background: var(--bg-card);
+      color: var(--subtext);
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 120px 30px 60px;
+        text-align: center;
+      }
+      .hero-img { margin: 0 auto; }
+      .actions { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+  <nav>
+    <strong>Rachel Arora</strong>
+    <ul>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#research">Research & Publications</a></li>
+      <li><a href="#por">Positions of Responsibility</a></li>
+      <li><a href="#certifications">Certifications</a></li>
+      <li><a href="#hackathons">Hackathons</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="toggle-btn" onclick="toggleTheme()">🌙 / ☀️</button>
+  </nav>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="hero-img">
+      <img src="image2.jpeg" alt="Your Photo">
+    </div>
+    <div class="hero-text">
+      <h1>Hi, I'm Rachel Arora</h1>
+      <h2>Final Year BCA Student / Data Analyst</h2>
+
+      <div class="meta">📍 New Delhi, Delhi, India · ✉️ rachelarora09@gmail.com</div>
+
+      <div class="actions">
+        <a class="resume-btn" href="https://drive.google.com/file/d/12OG0iqqLdPjZhEwwbsga-2gFBI3skpie/view?usp=sharing" download>Download Resume</a>
+        <div class="socials">
+          <a href="https://www.linkedin.com/in/rachelarora" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="https://github.com/Rachelarora" target="_blank"><i class="fab fa-github"></i></a>
+          <a href="https://www.instagram.com/rachelarora27_/" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.youtube.com/@rachelarora_" target="_blank"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+
+      <div class="intro-box">
+        <p>
+          I’m Rachel Arora, a final-year BCA student at JIMS, Vasant Kunj (GGSIPU University), currently maintaining a 9.3 GPA. I’m deeply interested in how technology can create meaningful real-world impact, particularly across Artificial Intelligence, Cybersecurity, and Data Analysis. Over the past few years, I’ve worked on multiple data-driven and web-based projects, completed industry internships, participated in national-level hackathons, and presented award-winning research at Asian Business School.
+          <br><br>
+          Alongside my technical journey, I’ve actively taken up leadership roles within my college—managing social media initiatives, contributing to student communities, and volunteering with NSS. I value curiosity, adaptability, and continuous learning, and I enjoy exploring ideas that combine technology, problem-solving, and social good.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  
+
+  <section id="projects">
+    <h2>Projects</h2>
+
+    <div class="card">
+      <strong>Employee Salary Prediction Model</strong><br>
+      A machine learning model designed to predict employee salaries based on key features.<br><br>
+      <a class="action-link" href="https://github.com/Rachelarora/Employee-Salary-Prediction-Rachel-Arora">📄 View Project</a>
+    </div>
+
+    <div class="card">
+      <strong>Blood Donation Prediction Model</strong><br>
+      Predictive analytics model to identify potential blood donors using historical data.<br><br>
+      <a class="action-link" href="https://github.com/Rachelarora/Blood-Donation-Prediction-Rachel-Arora">📄 View Project</a>
+    </div>
+
+    <div class="card">
+      <strong>CARESHARE – Smart Food & Medicine Waste Reduction System</strong><br>
+      An expiry-aware platform to reduce food and medicine waste through responsible sharing and donations.<br><br>
+      <a class="action-link" href="https://www.linkedin.com/feed/update/urn:li:activity:7419612221741215744/">📄 View Project</a>
+    </div>
+  </section>
+
+  <section id="experience">
+    <h2>Experience</h2>
+
+    <div class="card">
+      <strong>Data Analyst Intern – MedTourEasy</strong><br>
+      <em>1 July 2025 – 1 September 2025 | Hybrid</em><br><br>
+      Worked on data analysis tasks, extracting insights from datasets to support business decision-making.
+    </div>
+
+    <div class="card">
+      <strong>AI/ML Intern – Edunet Foundation</strong><br>
+      <em>15 June 2025 – 1 August 2025 | Remote</em><br><br>
+      Gained hands-on experience in Artificial Intelligence and Machine Learning concepts through real-world projects.
+    </div>
+
+    <div class="card">
+      <strong>Trainee – Anudip Foundation</strong><br>
+      <em>4 November 2024 – 5 December 2024 | Remote</em><br><br>
+      Completed structured training focused on industry-ready technical and professional skills.
+    </div>
+  </section>
+
+  <section id="research">
+    <h2>Research & Publications</h2>
+
+    <div class="card">
+      <strong>Overloaded Karts and Underrepresented Citizens: Rethinking Viksit Bharat 2047 Through Urban Informality</strong><br>
+      <em>Conference: Viksit Bharat: Harnessing Indian Knowledge for Innovation and Entrepreneurship</em><br>
+      <em>Asian Business School</em><br><br>
+      🏆 <strong>3rd Best Paper Award</strong><br>
+      <a class="action-link" href="https://docs.google.com/document/d/1Sn_qDqsswDSE8u19u1citsRh-nASPR40/edit?usp=sharing&ouid=114698734075488338219&rtpof=true&sd=true">📄 View Paper</a>
+    </div>
+  </section>
+
+  <section id="por">
+    <h2>Positions of Responsibility</h2>
+
+    <div class="card"><strong>Social Media Manager – JIMS Vasant Kunj</strong><br><em>September 2025 – Present</em></div>
+    <div class="card"><strong>Alumni Committee Member – JIMS Vasant Kunj</strong><br><em>September 2025 – Present</em></div>
+    <div class="card"><strong>Social Media Director – ENIGMA IT Club</strong><br><em>September 2024 – June 2025</em></div>
+    <div class="card"><strong>Social Media Manager – ENIGMA IT Club</strong><br><em>March 2024 – August 2024</em></div>
+    <div class="card"><strong>Volunteer – NSS Cell</strong><br><em>February 2024 – Present</em></div>
+  </section>
+
+  <section id="certifications">
+    <h2>Certifications</h2>
+    <div class="gallery">
+      <div class="card"><strong>SMART INDIA HACKATHON 2025 </strong><br><img src="sih2025.png" onclick="openLightbox(this.src)"></div>
+      <div class="card"><strong>DATA ANALYST TRACK</strong><br><img src="data_analyst.png" onclick="openLightbox(this.src)"></div>
+      <div class="card"><strong>AI FUNDAMENTALS</strong><br><img src="ibm.png" onclick="openLightbox(this.src)"></div>
+      <div class="card"><strong>ANALYSIS WITH EXCEL</strong><br><img src="anudip.png" onclick="openLightbox(this.src)"></div>
+      <div class="card"><strong>RESEARCH PAPER AWARD</strong><br><img src="3rdbestpaper.png" onclick="openLightbox(this.src)"></div>
+      <div class="card"><strong>SMART INDIA HACKATHON 2024</strong><br><img src="sih2024.png" onclick="openLightbox(this.src)"></div>
+      <div class="card"><strong>INTRO TO CYBERSECURITY</strong><br><img src="cisco.png" onclick="openLightbox(this.src)"></div>
+      <div class="card"><strong>INTRO TO PROMPT ENGINEERING</strong><br><img src="simplilearn.png" onclick="openLightbox(this.src)"></div>
+      <div class="card"><strong>SIX SIGMA MIND MECHANICS</strong><br><img src="sixsigma.png" onclick="openLightbox(this.src)"></div>
+      <div class="card"><strong>PROMPT DESIGN IN VERTEX AI</strong><br><img src="google_cloud.png" onclick="openLightbox(this.src)"></div>
+      <div class="card"><strong>JOB SIMULATION</strong><br><img src="deloitte.png" onclick="openLightbox(this.src)"></div>
+      <div class="card"><strong>VIKSIT BHARAT QUIZ</strong><br><img src="quiz.png" onclick="openLightbox(this.src)"></div>
+      <div class="card"><strong>AI - DATA SCIENTIST </strong><br><img src="roadmap.png" onclick="openLightbox(this.src)"></div>
+      <div class="card"><strong>INTERNSHIP COMPLETION</strong><br><img src="edunet.png" onclick="openLightbox(this.src)"></div>
+      <div class="card"><strong>INTERNSHIP COMPLETION</strong><br><img src="medtoureasy.png" onclick="openLightbox(this.src)"></div>
+    </div>
+  </section>
+
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <span>&times;</span>
+    <img id="lightbox-img" src="">
+  </div>
+
+  <section id="hackathons">
+    <h2>Hackathons</h2>
+    <div class="card"><strong>Smart India Hackathon 2024</strong><br><em>September 2024</em><br>Suraksha Setu – Women Safety Analytics App </div>
+    <div class="card"><strong>Smart India Hackathon 2025</strong><br><em>September 2025</em><br>Smart Classrooms & Timetable Scheduler</div>
+  </section>
+
+  <section id="gallery">
+    <h2>Gallery</h2>
+    <div class="gallery">
+      <div class="card"><strong>RCS PANEL AT GOOGLE</strong><br><img src="google.png" onclick="openLightbox(this.src)"></div>
+      <div class="card"><strong>INTERNATIONAL CONFERENCE</strong><br><img src="conference.png" onclick="openLightbox(this.src)"></div>
+      <div class="card"><strong>3RD BEST PAPER AWARD</strong><br><img src="award.png" onclick="openLightbox(this.src)"></div>
+      <div class="card"><strong>2ND POSITION IN 4TH SEM</strong><br><img src="academic.png" onclick="openLightbox(this.src)"></div>
+      <div class="card"><strong>TOPPER LIST</strong><br><img src="topper.png" onclick="openLightbox(this.src)"></div>
+      <div class="card"><strong>PAD DONATION DRIVE ON WOMEN'S DAY</strong><br><img src="pad-donation.png" onclick="openLightbox(this.src)"></div>
+      <div class="card"><strong>SIH 2024</strong><br><img src="sih24.png" onclick="openLightbox(this.src)"></div>
+      <div class="card"><strong>SIH 2025</strong><br><img src="sih25.png" onclick="openLightbox(this.src)"></div>
+      <div class="card"><strong>INAUGRATION FOR IDEA4LIFE PORTAL</strong><br><img src="nss.png" onclick="openLightbox(this.src)"></div>
+      <div class="card"><strong>INDUSTRIAL VISIT</strong><br><img src="networkbulls.png" onclick="openLightbox(this.src)"></div>
+    
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2 style="width:100%">Contact Me</h2>
+    <a href="mailto:rachelarora09@gmail.com">✉️ rachelarora09@gmail.com</a>
+    <div class="socials">
+      <a href="https://www.linkedin.com/in/rachelarora" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://github.com/Rachelarora" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://www.instagram.com/rachelarora27_/" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.youtube.com/@rachelarora_" target="_blank"><i class="fab fa-youtube"></i></a>
+    </div>
+  </section>
+
+  <footer>© 2026 Rachel Arora | All Rights Reserved</footer>
+
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('light');
+    }
+
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('nav ul li a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 120;
+        if (pageYOffset >= sectionTop) current = section.getAttribute('id');
+      });
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) link.classList.add('active');
+      });
+    });
+
+    function openLightbox(src) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').classList.add('active');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+    }
+  </script>
+
+</body>
+</html>
