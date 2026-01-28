@@ -2,8 +2,8 @@
 
 This repository contains the source code for my **personal portfolio website**, showcasing my academic background, projects, skills, research work, and professional experiences.
 
-🔗 **Live Website:** *(Add Netlify link here)*  
-📄 **Resume:** [Download Resume](https://drive.google.com/uc?export=download&id=12OG0iqqLdPjZhEwwbsga-2gFBI3skpie)
+🔗 **Live Website:** (https://rachelaroraportfolio.netlify.app/)  
+📄 **Resume:** (https://drive.google.com/uc?export=download&id=12OG0iqqLdPjZhEwwbsga-2gFBI3skpie)
 
 ---
 
@@ -27,13 +27,6 @@ I enjoy building data-driven projects, participating in hackathons, and contribu
 - HTML  
 - CSS  
 - JavaScript  
-
----
-
-## 📬 Contact
-- Email: **rachelarora09@gmail.com**  
-- LinkedIn: https://www.linkedin.com/in/rachelarora  
-- GitHub: https://github.com/Rachelarora  
 
 ---
 
