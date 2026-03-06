@@ -3,7 +3,7 @@
 This repository contains the source code for my **personal portfolio website**, showcasing my academic background, projects, skills, research work, and professional experiences.
 
 🔗 **Live Website:** (https://rachelarora.netlify.app/)
-📄 **Resume:** (https://drive.google.com/uc?export=download&id=12OG0iqqLdPjZhEwwbsga-2gFBI3skpie)
+
 
 ---
 
